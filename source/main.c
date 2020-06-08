@@ -96,22 +96,22 @@ int main(void)
 	{
 		GCD = findGCD(GCD, tasks[x]->period);
 	}
-	TimerPrepare(GCD);
+	TimerSet(GCD);
 	TimerOn();
 
 	LCD_init();
 	LCD_Cursor(1);
 
-	unsigned char i;
+	unsigned short i;
 	while (1) {
-		for (i = 0; i < tasksNum; i++) {
-			if (tasks[i].elapsedTime >= tasks[i].period) {
-				tasks[i].state = tasks[i].TickFct(tasks[i].state);
-				tasks[i].elapsedTime = 0;
+		for (i = 0; i < numTasks; i++) {
+			if (tasks[i]->elapsedTime == tasks[i]->period) {
+				tasks[i]->state = tasks[i]->TickFct(tasks[i]->state);
+				tasks[i]->elapsedTime = 0;
 			}
-			tasks[i].elapsedTime += GCD;
+			tasks[i]->elapsedTime += GCD;
 		}
-		while (!TimerFlag) {}
+		while (!TimerFlag);
 		TimerFlag = 0;
 	}
 }
