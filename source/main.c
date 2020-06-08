@@ -150,7 +150,7 @@ int main(void) {
 	const char start = -1;
 
 	task1.state = start;
-	task1.period = 1000;
+	task1.period = 50;
 	task1.elapsedTime = task1.period;
 	task1.TickFct = &Key_Input;
 
