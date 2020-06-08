@@ -52,7 +52,6 @@ int Key_Input(int state) {
 	}
 	switch (state) {
 	case Prepare:
-		state = Input;
 		switch (key) {
 		case '\0':
 			tempB = 0x1F;
