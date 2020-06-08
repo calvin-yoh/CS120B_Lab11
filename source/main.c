@@ -48,7 +48,7 @@ int main(void) {
     const unsigned short numTasks = sizeof(tasks) / sizeof(task*);
 
     task1.state = Display;
-    task1.period = 1000;
+    task1.period = 2000;
     task1.elapsedTime = task1.period;
     task1.TickFct = &DisplaySentance_Tick;
 
