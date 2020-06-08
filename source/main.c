@@ -86,7 +86,7 @@ int main(void)
 	const unsigned short numTasks = sizeof(tasks) / sizeof(task*);
 
 	task1.state = Start;
-	task1.period = 2;
+	task1.period = 100;
 	task1.elapsedTime = task1.period;
 	task1.TickFct = &Display_Key;
 
