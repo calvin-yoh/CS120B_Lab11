@@ -152,6 +152,7 @@ int main(void) {
 	LCD_ClearScreen();
 	LCD_DisplayString(1, "Congratulations!");
 
+	unsigned short i;
 	while (1) {
 		for (i = 0; i < numTasks; i++) {
 			if (tasks[i]->elapsedTime == tasks[i]->period) {
