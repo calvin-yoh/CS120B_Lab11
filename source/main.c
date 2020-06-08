@@ -72,7 +72,6 @@ int Display_Key(int state) {
 		}
 		break;
 	default:
-		LCD_WriteData('#');
 		break;
 	}
 	return state;
