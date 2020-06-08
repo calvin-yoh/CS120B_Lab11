@@ -35,7 +35,6 @@ int Key_Input(int state) {
 			state = Wait;
 		}
 		else {
-			LCD_WriteData('W');
 			state = Input;
 			save = key;
 		}
