@@ -1,5 +1,5 @@
 /*	Author: lab
- *  Partner(s) Name: 
+ *  Partner(s) Name:
  *	Lab Section:
  *	Assignment: Lab #  Exercise #
  *	Exercise Description: [optional - include for your own benefit]
@@ -70,6 +70,7 @@ int Display_Key(int state) {
 		}
 		break;
 	default:
+		LCD_WriteData('#');
 		break;
 	}
 	return state;
@@ -101,6 +102,7 @@ int main(void)
 
 	LCD_init();
 	LCD_Cursor(1);
+	LCD_DisplayString(1, "Hello World");
 
 	unsigned short i;
 	while (1) {
