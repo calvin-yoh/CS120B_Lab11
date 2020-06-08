@@ -70,7 +70,7 @@ int Display_Key(int state) {
 		}
 		break;
 	default:
-		LCD_DisplayString(1, "#");
+		LCD_WriteData('#');
 		break;
 	}
 	return state;
