@@ -1,6 +1,6 @@
 /*	Author: lab
  *  Partner(s) Name:
- *	Lab Section: 21
+ *	Lab Section: 22
  *	Assignment: Lab 11  Exercise 4
  *	Exercise Description: [optional - include for your own benefit]
  *
