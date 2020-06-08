@@ -102,7 +102,6 @@ int main(void)
 	TimerOn();
 
 	LCD_init();
-	LCD_DisplayString(1, "Hello World");
 
 	unsigned short i;
 	while (1) {
