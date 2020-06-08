@@ -150,14 +150,13 @@ int main(void) {
 	static task task1, task2;
 	task* tasks[] = { &task1, &task2 };
 	const unsigned short numTasks = sizeof(tasks) / sizeof(task*);
-	const char start = -1;
 
-	task1.state = start;
+	task1.state = Wait;
 	task1.period = 50;
 	task1.elapsedTime = task1.period;
 	task1.TickFct = &Key_Input;
 
-	task2.state = start;
+	task2.state = Display;
 	task2.period = 250;
 	task2.elapsedTime = task2.period;
 	task2.TickFct = &Display_Screen;
