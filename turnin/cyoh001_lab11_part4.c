@@ -1,4 +1,4 @@
-/*	Author: Brandon Porter
+/*	Author: lab
  *  Partner(s) Name: 
  *	Lab Section: 21
  *	Assignment: Lab 11  Exercise 4
@@ -18,152 +18,131 @@
 #include "io.h"
 
 
-unsigned char tmpB = 0x00;
-unsigned char keypadInput;
+unsigned char tempB = 0x00;
+unsigned char key;
 
-enum keypad_States { keypad_input };
-int keypadSMTick(int state) {
-	keypadInput = GetKeypadKey();
+enum keypad_States { Input } key_state;
+enum Display_States { Display } screen_state;
+
+int Key_Input(int state) {
+
+	key = GetKeypadKey();
 
 	switch(state) {
-		case keypad_input:
-			state = keypad_input;
-			switch(keypadInput) {
+		case Input:
+			state = Input;
+			switch(key) {
 				case '\0':
-					tmpB = 0x1F;
+					tempB = 0x1F;
 					break;
 				case '1':
-					tmpB = 0x01;
+					tempB = 0x01;
 					break;
 				case '2':
-					tmpB = 0x02;
+					tempB = 0x02;
 					break;
 				case '3':
-					tmpB = 0x03;
+					tempB = 0x03;
 					break;
 				case '4':
-					tmpB = 0x04;
+					tempB = 0x04;
 					break;
 				case '5':
-					tmpB = 0x05;
+					tempB = 0x05;
 					break;
 				case '6':
-					tmpB = 0x06;
+					tempB = 0x06;
 					break;
 				case '7':
-					tmpB = 0x07;
+					tempB = 0x07;
 					break;
 				case '8':
-					tmpB = 0x08;
+					tempB = 0x08;
 					break;
 				case '9':
-					tmpB = 0x09;
+					tempB = 0x09;
 					break;
 				case 'A':
-					tmpB = 0x11;
+					tempB = 0x11;
 					break;
 				case 'B':
-					tmpB = 0x12;
+					tempB = 0x12;
 					break;
 				case 'C':
-					tmpB = 0x13;
+					tempB = 0x13;
 					break;
 				case 'D':
-					tmpB = 0x14;
+					tempB = 0x14;
 					break;
 				case '*':
-					tmpB = 0x0E;
+					tempB = 0x0E;
 					break;
 				case '0':
-					tmpB = 0x00;
+					tempB = 0x00;
 					break;
 				case '#':
-					tmpB = 0x0F;
+					tempB = 0x0F;
 					break;
 				default:
-					tmpB = 0x1B;
+					tempB = 0x1B;
 					break;
 			}
 			break;
 		default:
-			state = keypad_input;
+			state = Input;
 			break;
 	}
 	return state;
 }
 
-unsigned char cursor = 0;
+unsigned char currCol = 0;
 
-enum fillScreen_States { fillScreen_fillScreen };
-int fillScreenSMTick(int state) {
+int Display_Screen(int state) {
 	switch(state) {
-		case fillScreen_fillScreen:
-			state = fillScreen_fillScreen;
+		case Display:
+			state = Display;
 			break;
 		default:
-			state = fillScreen_fillScreen;
+			state = Display;
 			break;
 	}
 	switch(state) {
-		case fillScreen_fillScreen:
-			if((tmpB & 0xFF) != 0x1F) {	
-				LCD_Cursor(cursor);
-				cursor++;		
-				LCD_WriteData(tmpB + '0');
+		case Display:
+			if((tempB & 0xFF) != 0x1F) {	
+				LCD_Cursor(currCol);
+				currCol++;		
+				LCD_WriteData(tempB + '0');
 			}
 			break;
 	}
 	return state;
 }
 
-/*enum display_States { display_display };
-int displaySMTick(int state) {
-	//unsigned char output;
-	switch(state) {
-		case display_display:
-			state = display_display;
-			break;
-		default:
-			state = display_display;
-			break;
-	}
-	switch(state) {
-		case display_display:
-			//output = tmpB;
-			break;
-	}
-	//PORTB = output;
-	return state;
-}*/
-
 int main(void) {
-    /* Insert DDR and PORT initializations */
 	DDRB = 0xFF; PORTB = 0x00;
 	DDRC = 0xF0; PORTC = 0x0F;
 	DDRD = 0xFF; PORTD = 0x00;
-    /* Insert your solution below */
+
 	static task task1, task2;
 	task *tasks[] = { &task1, &task2 };
 	const unsigned short numTasks = sizeof(tasks) / sizeof(task*);
 	const char start = -1;
 
-	// Task 1 (fillScreenSM)
 	task1.state = start;
 	task1.period = 50;
 	task1.elapsedTime = task1.period;
-	task1.TickFct = &keypadSMTick;
+	task1.TickFct = &Key_Input;
 
-	// Task 2 (displaySM)
 	task2.state = start;
 	task2.period = 250;
 	task2.elapsedTime = task2.period;
-	task2.TickFct = &fillScreenSMTick;
+	task2.TickFct = &Display_Screen;
 
-	unsigned short i;
+	unsigned short x;
 
 	unsigned long GCD = tasks[0]->period;
-	for(i = 1; i < numTasks; i++) {
-		GCD = findGCD(GCD, tasks[i]->period);
+	for(x = 1; x < numTasks; x++) {
+		GCD = findGCD(GCD, tasks[x]->period);
 	}
 
 	TimerSet(GCD);
