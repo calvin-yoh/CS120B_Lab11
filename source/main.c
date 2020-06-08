@@ -110,6 +110,7 @@ int Key_Input(int state) {
 		}
 		break;
 	default:
+		tempB = 0x1F;
 		break;
 	}
 	return state;
