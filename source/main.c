@@ -21,15 +21,70 @@
 unsigned char tempB = 0x00;
 unsigned char key;
 
-enum keypad_States { Input } key_state;
+enum keypad_States { Input, Wait, Prepare } key_state;
 enum Display_States { Display } screen_state;
+
+
+int Display_Key(int state) {
+	unsigned char key = GetKeypadKey();
+	static unsigned char prev;
+	switch (state) {
+	case Start:
+		state = Wait;
+		break;
+	case Wait:
+		if (key == '\0' || prev == key) {
+			state = Wait;
+		}
+		else {
+			state = Display;
+			prev = key;
+		}
+		break;
+	case Display:
+		if (key == '\0') {
+			state = Prepare;
+		}
+		else {
+			state = Display;
+		}
+		break;
+	case Prepare:
+		state = Wait;
+		break;
+	default:
+		state = Start;
+		break;
+	}
 
 int Key_Input(int state) {
 
 	key = GetKeypadKey();
-
 	switch (state) {
+	case Wait:
+		if (key == '\0') {
+			state = Wait;
+		}
+		else {
+			state = Input;
+		}
+		break;
 	case Input:
+		if (key == '\0') {
+			state = Prepare;
+		}
+		else {
+			state = Input;
+		}
+		break;
+	case Prepare:
+		state = Wait;
+		break;
+	default: 
+		break;
+	}
+	switch (state) {
+	case Prepare:
 		state = Input;
 		switch (key) {
 		case '\0':
@@ -89,7 +144,6 @@ int Key_Input(int state) {
 		}
 		break;
 	default:
-		state = Input;
 		break;
 	}
 	return state;
