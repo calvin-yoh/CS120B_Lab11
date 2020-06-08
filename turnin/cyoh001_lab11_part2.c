@@ -12,7 +12,7 @@
 #include "timer.h"
 #include "scheduler.h"
 #include "keypad.h"
-#include "io.c"
+#include "io.h"
 #endif
 
 enum STATES { Display };

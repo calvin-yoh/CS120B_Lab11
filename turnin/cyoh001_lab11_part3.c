@@ -13,7 +13,7 @@
 #include <avr/interrupt.h>
 #include <timer.h>
 #include <scheduler.h>
-#include <io.c>
+#include <io.h>
 
 enum States { Start, Wait, Display, Prepare } state;
 
