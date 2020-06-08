@@ -21,7 +21,7 @@
 unsigned char tempB = 0x00;
 unsigned char key;
 
-enum keypad_States { Input, Wait, Prepare } key_state;
+enum keypad_States { Wait, Input, Prepare } key_state;
 enum Display_States { Display } screen_state;
 
 int Key_Input(int state) {
