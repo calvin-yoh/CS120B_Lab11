@@ -1,5 +1,5 @@
 /*	Author: lab
- *  Partner(s) Name: 
+ *  Partner(s) Name:
  *	Lab Section:
  *	Assignment: Lab #  Exercise #
  *	Exercise Description: [optional - include for your own benefit]
@@ -7,6 +7,7 @@
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
  */
+#include <avr/io.h>
 #ifdef _SIMULATE_
 #include "simAVRHeader.h"
 #include "timer.h"
@@ -20,7 +21,7 @@ enum STATES { Display };
 unsigned char count = 1;
 unsigned char a;
 
-const unsigned char sentance[60] = {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','C','S','1','2','0','B',' ','i','s',' ','L','e','g','e','n','d','.','.','.','w','a','i','t',' ','f','o','r',' ','i','t',' ','D','A','R','Y','!',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '};
+const unsigned char sentance[60] = { ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','C','S','1','2','0','B',' ','i','s',' ','L','e','g','e','n','d','.','.','.','w','a','i','t',' ','f','o','r',' ','i','t',' ','D','A','R','Y','!',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ' };
 int DisplaySentance_Tick(int state) {
     switch (state) {
     case Display:
