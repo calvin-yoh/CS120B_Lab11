@@ -102,6 +102,7 @@ int main(void)
 
 	LCD_init();
 	LCD_Cursor(1);
+	LCD_WriteData('#');
 
 	unsigned short i;
 	while (1) {
