@@ -102,7 +102,7 @@ int main(void)
 
 	LCD_init();
 	LCD_Cursor(1);
-	LCD_WriteData('#');
+	LCD_DisplayString(1, "Hello World");
 
 	unsigned short i;
 	while (1) {
