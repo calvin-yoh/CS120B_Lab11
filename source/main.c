@@ -119,7 +119,7 @@ int Key_Input(int state) {
 	return state;
 }
 
-unsigned char currCol = 1;
+unsigned char currCol = 0;
 
 int Display_Screen(int state) {
 	switch (state) {
