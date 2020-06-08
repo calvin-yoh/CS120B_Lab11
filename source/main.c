@@ -30,14 +30,17 @@ int Key_Input(int state) {
 	switch (state) {
 	case Wait:
 		if (key == '\0') {
+			
 			state = Wait;
 		}
 		else {
+			LCD_WriteData('W');
 			state = Input;
 		}
 		break;
 	case Input:
 		if (key == '\0') {
+			
 			state = Prepare;
 		}
 		else {
