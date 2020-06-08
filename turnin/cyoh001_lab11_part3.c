@@ -8,12 +8,14 @@
  *	code, is my own original work.
  */
 #include <avr/io.h>
+#ifdef _SIMULATE_
 #include <bit.h>
-#include <keypad.h>
-#include <avr/interrupt.h>
-#include <timer.h>
-#include <scheduler.h>
-#include <io.h>
+#include "simAVRHeader.h"
+#include "timer.h"
+#include "scheduler.h"
+#include "keypad.h"
+#include "io.h"
+#endif
 
 enum States { Start, Wait, Display, Prepare } state;
 
@@ -70,7 +72,6 @@ int Display_Key(int state) {
 		}
 		break;
 	default:
-		LCD_WriteData('#');
 		break;
 	}
 	return state;
@@ -78,7 +79,7 @@ int Display_Key(int state) {
 
 int main(void)
 {
-	DDRA = 0xFF; PORTA = 0x00;
+	DDRB = 0xFF; PORTB = 0x00;
 	DDRC = 0xF0; PORTC = 0x0F;
 	DDRD = 0xFF; PORTC = 0x00;
 
@@ -101,8 +102,6 @@ int main(void)
 	TimerOn();
 
 	LCD_init();
-	LCD_Cursor(1);
-	LCD_DisplayString(1, "Hello World");
 
 	unsigned short i;
 	while (1) {
