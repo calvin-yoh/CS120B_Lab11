@@ -20,6 +20,7 @@
 
 unsigned char tempB = 0x00;
 unsigned char key;
+unsigned char save;
 
 enum keypad_States { Wait, Input, Prepare } key_state;
 enum Display_States { Display } screen_state;
@@ -36,6 +37,7 @@ int Key_Input(int state) {
 		else {
 			LCD_WriteData('W');
 			state = Input;
+			save = key;
 		}
 		break;
 	case Input:
@@ -55,7 +57,7 @@ int Key_Input(int state) {
 	}
 	switch (state) {
 	case Prepare:
-		switch (key) {
+		switch (save) {
 		case '\0':
 			tempB = 0x1F;
 			break;
